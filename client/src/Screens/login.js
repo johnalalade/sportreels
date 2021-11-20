@@ -371,7 +371,7 @@ class Logins extends Component {
               window.location = `/${localStorage.getItem('redirect')}?oau=true`
             }
             else {
-              window.location = `/`
+              window.location = `/welcome`
             }
           }
           else {
@@ -614,7 +614,7 @@ class Logins extends Component {
               </p>
             </div>
 
-            <div onClick={() => {
+            {/* <div onClick={() => {
               localStorage.setItem("mode", (localStorage.getItem("mode") === "light") ? "dark" : "light");
 
             }} className="light-mode">
@@ -625,7 +625,7 @@ class Logins extends Component {
                   data-inline="false"
                 ></span>
               </a>
-            </div>
+            </div> */}
             
           </div>
           <div className="container-2">

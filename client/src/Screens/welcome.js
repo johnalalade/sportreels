@@ -420,7 +420,7 @@ class Welcome extends Component {
               </p>
             </div>
 
-            <div onClick={() => {
+            {/* <div onClick={() => {
               localStorage.setItem("mode", (localStorage.getItem("mode") === "light") ? "dark" : "light");
 
             }} className="light-mode">
@@ -431,7 +431,7 @@ class Welcome extends Component {
                   data-inline="false"
                 ></span>
               </a>
-            </div>
+            </div> */}
             
           </div>
           
