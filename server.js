@@ -9,10 +9,7 @@ const path = require('path');
 const aws = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
 
-// const profileRoute = require('./Routes/userProfileRoutes');
-const storeRoute = require('./Routes/StoreRoutes');
-const productsRoute = require('./Routes/ProductsRoutes');
-const authRoute = require('./Routes/AuthRoute');
+const userRoute = require('./Routes/UserRoutes');
 
 const port = process.env.PORT || 5000
 
@@ -56,48 +53,9 @@ if(process.env.NODE_ENV === 'production') {
 server.listen(port, () => console.log(`Server has started.on port ${port}$`));
 
 // app.use('/', profileRoute)
-app.use('/', storeRoute)
-app.use('/', productsRoute)
-app.use('/', authRoute)
+app.use('/', userRoute)
+
 
 
 const S3_BUCKET = process.env.S3_BUCKET;
 aws.config.region = 'us-east-2'
-
-app.post('/sign-s3', (req, res) => {
-  const s3 = new aws.S3();
-  const fileName = req.query['file-name'];
-  const fileType = req.query['file-type'];
-  const imgName = 'gigvee'+'-'+Date.now()+fileName+uuidv4()
-  const s3Params = {
-    Bucket: S3_BUCKET,
-    Key: imgName,
-    Expires: 180,
-    ContentType: fileType,
-    ACL: 'public-read'
-  };
-
-  // aws.config.getCredentials(function(err) {
-  //   if (err) console.log(err.stack);
-  //   // credentials not loaded
-  //   else {
-  //     console.log("Access key:", aws.config.credentials.accessKeyId);
-  //   }
-  // });
-
-  s3.getSignedUrl('putObject', s3Params, (err, data) => {
-    if(err){
-      console.log(err);
-      return res.end();
-    }
-    const returnData = {
-      signedRequest: data,
-      url: `https://${S3_BUCKET}.s3.amazonaws.com/${imgName}`
-    };
-    res.json({
-      signedRequest: data,
-      url: `https://${S3_BUCKET}.s3.amazonaws.com/${imgName}`
-    });
-   // res.end();
-  });
-});

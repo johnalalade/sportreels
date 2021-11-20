@@ -1,4 +1,4 @@
-const Login = require('../Models/loginModel');
+const Login = require('../Models/UserProfile');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const path = require('path');
@@ -54,7 +54,14 @@ const register = (req, res, next) => {
 
                 res.json({
                     message: "Login Successful",
-                    id: user._id
+                    id: user._id,
+                    username: user.username,
+                     src: user.src,
+                     phone: user.phone,
+                     email: user.email,
+                     department: user.department,
+                     level: user.level,
+                     isVerified: true
                 })
                 //email
                 var transporter = nodemailer.createTransport({
@@ -110,7 +117,8 @@ const login = (req, res, next) => {
                         res.json({
                             message: "Login Succesful",
                             token,
-                            id: user._id
+                            id: user._id,
+                            response: user
                         })
                     } else {
                         res.json({
@@ -234,7 +242,7 @@ const updateProfile = (req, res, next) => {
 
 
 module.exports = {
-    register, login, showOne, storeProfile, updateProfile, indexProfile
+    register, login, showOne, updateProfile, indexProfile
 }
 
 // {expiresIn: '24h'}
