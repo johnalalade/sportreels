@@ -28,7 +28,7 @@ db.once('open', () =>{
 })
 
 const app = express();
-const server = http.createServer(app);
+const server = http.createServer(app); 
 
 
 app.use(cors());
